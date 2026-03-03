@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PowerPoint Masterclass | Athar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="progressBarContainer"><div id="progressBar"></div></div>
+
+<header>
+  <div class="logo">ATHAR PPT</div>
+  <div id="stats" style="font-size: 0.8rem; color: var(--text-dim);"></div>
+</header>
+
+<section class="hero">
+  <h1>فريق أثر - قسم البرامج</h1>
+  <p>دورتك المتكاملة لتصميم عروض بوربوينت متقدمة</p>
+</section>
+
+<div class="lessons-grid" id="mainGrid"></div>
+
+<div id="contentSection">
+  <button class="close-btn" onclick="closeContent()">إغلاق العرض ×</button>
+  
+  <div id="videoBox" class="video-container hidden">
+    <iframe id="vFrame" src="" allow="autoplay; fullscreen"></iframe>
+  </div>
+
+  <div id="readingBox" class="article-body hidden">
+    <h2 id="lTitle" style="color: var(--primary);"></h2>
+    <div id="lBody"></div>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+
+
+
+</body>
+</html>
