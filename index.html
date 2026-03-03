@@ -5,7 +5,242 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PowerPoint Masterclass | Athar</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+    --primary: #FF4B2B;
+    --secondary: #FF416C;
+    --dark-bg: #0f172a;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-main: #f8fafc;
+    --text-dim: #94a3b8;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--dark-bg);
+    background-image:
+        radial-gradient(at 0% 0%, rgba(255, 75, 43, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(255, 65, 108, 0.15) 0px, transparent 50%);
+    color: var(--text-main);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Progress Bar */
+#progressBarContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    z-index: 2000;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#progressBar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    box-shadow: 0 0 15px var(--primary);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Navbar */
+header {
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    background: rgba(15, 23, 42, 0.8);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-weight: 900;
+    font-size: 1.4rem;
+    background: linear-gradient(to right, #FF4B2B, #FF416C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Hero Section */
+.hero {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
+}
+
+.hero p {
+    color: var(--text-dim);
+    font-size: 1rem;
+}
+
+/* Grid Layout */
+.lessons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px 5% 40px;
+}
+
+/* Enhanced Glass Card */
+.glass-card {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 24px;
+    position: relative;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.glass-card:active {
+    transform: scale(0.98);
+}
+
+.type-badge {
+    align-self: flex-start;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    margin-bottom: 15px;
+    color: var(--secondary);
+}
+
+.glass-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.glass-card p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.btn-action {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Cairo';
+    font-size: 1rem;
+    transition: opacity 0.3s;
+}
+
+.glass-card.completed {
+    border-color: #10b981;
+}
+
+.glass-card.completed::after {
+    content: '✓ تم الإنجاز';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 0.7rem;
+    color: #10b981;
+    font-weight: bold;
+}
+
+/* Content Viewer */
+#contentSection {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dark-bg);
+    z-index: 3000;
+    display: none;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.close-btn {
+    position: sticky;
+    top: 0;
+    right: 0;
+    background: var(--primary);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-family: 'Cairo';
+    margin-bottom: 20px;
+    cursor: pointer;
+    z-index: 3001;
+}
+
+.video-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 30px;
+    aspect-ratio: 16/9;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.article-body {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .lessons-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .glass-card {
+        padding: 20px;
+    }
+}
+
+.hidden {
+    display: none;
+}
+  </style>
 </head>
 <body>
 
@@ -36,11 +271,144 @@
   </div>
 </div>
 
-<script src="app.js"></script>
+<script>
+  
+const lessons = [
+
+  //الدرس الأول ------------------------------------------------------------------------------------
+
+  {
+    id: '1', type: 'reading', title: ' الدرس الأوّل - مقدمة عن الباوربوينت',
+    desc: 'مقدمة عن برنامح الباوربوينت، ولماذا هو أداة لا غنى عنها في عالم الأعمال والتعليم.',
+    vid: '',
+    content: `
+        <p>يعد الباوربوينت أداة أساسية في عالم الأعمال والتعليم، حيث يُستخدم لعرض المعلومات بطريقة بصرية جذابة وسهلة الفهم.</p>
+        <p>في هذه الدورة سنستعرض أساسيات الباوربوينت وكيفية استخدامه لإنشاء عروض تقديمية فعالة.</p>
+                <p>برنامج البوربوينت هو من سلسلة برامج اوفس</p>
+
+        <ul>
+      `
+  },
+  //الدرس الثاني ------------------------------------------------------------------------------------
+  {
+    id: '2', type: 'video', title: 'الدرس الثاني - إنشاء مشروع ',
+    desc: 'خطوة بخطوة لإنشاء عرض تقديمي من الصفر، مع نصائح حول تنظيم المحتوى واختيار التصميم المناسب.',
+    vid: '1PtNXwyQ0k1Op5UT8t1f-phq9aX4WaRYN',
+    content: ''
+  },
+
+
+  //الدرس الثالث ------------------------------------------------------------------------------------
+  {
+    id: '3', type: 'video', title: 'الدرس الثالث - اضافة العناصر ',
+    desc: 'كيفية إضافة النصوص، الصور، الأشكال، والوسائط المتعددة إلى شرائحك لجعلها أكثر تفاعلية وجاذبية.',
+    vid: '1ndl6jY9kPmQu2StKagompVItnGNFzkeR',
+    content: ''
+  },
+
+
+  //الدرس الرابع ------------------------------------------------------------------------------------
+
+  {
+    id: '4', type: 'video', title: 'الدرس الرابع -  اختصارات الكيبورد',
+    desc: 'تعلم أهم اختصارات لوحة المفاتيح في الباوربوينت لتسريع عملك وزيادة إنتاجيتك.',
+    vid: '1iDF4-Un6q7aXrWQWP3-ny9XRmv0YAavn',
+    content: ''
+  },
+
+
+  //الدرس الخامس ------------------------------------------------------------------------------------
+
+  {
+    id: '5', type: 'video', title: 'الدرس الخامس -  التلوين ',
+    desc: 'كيفية تخصيص مظهر العرض بحسب احتياجاتك، مع نصائح حول اختيار الألوان والخطوط المناسبة.',
+    vid: '1xj5kk-4rQCdqGO_oIuzB-DTK4K-jS05t',
+    content: ''
+  },
+
+
+  //الدرس السادس ------------------------------------------------------------------------------------
+
+  {
+    id: '6', type: 'video', title: 'الدرس السادس -  الطبقات والتنسيق',
+    desc: 'تعلم كيفية تنظيم العناصر في شرائحك باستخدام الطبقات والتنسيق لضمان عرض مرتب وجذاب.',
+    vid: '1LZlqJIQwiattHppVJ5nwanKvx7AD5FUw',
+    content: ''
+  },
+
+
+
+];
+
+function render() {
+  const grid = document.getElementById('mainGrid');
+  const watchedCount = lessons.filter(l => localStorage.getItem('lesson_' + l.id)).length;
+
+  document.getElementById('stats').innerText = `تم إنجاز ${watchedCount} من أصل ${lessons.length}`;
+
+  grid.innerHTML = lessons.map(l => {
+    const isWatched = localStorage.getItem('lesson_' + l.id);
+    return `
+        <div class="glass-card ${isWatched ? 'completed' : ''}">
+          <div>
+            <span class="type-badge">${l.type === 'video' ? '📺 فيديو تدريبي' : '📖 مقال تعليمي'}</span>
+            <h3>${l.title}</h3>
+            <p>${l.desc}</p>
+          </div>
+          <button class="btn-action" onclick="openLesson('${l.id}')">
+            ${isWatched ? 'مشاهدة مرة أخرى' : 'ابدأ الدرس الآن'}
+          </button>
+        </div>
+      `;
+  }).join('');
+
+  updateProgress(watchedCount);
+}
+
+function openLesson(id) {
+  const lesson = lessons.find(l => l.id === id);
+  const section = document.getElementById('contentSection');
+  const vBox = document.getElementById('videoBox');
+  const rBox = document.getElementById('readingBox');
+
+  section.style.display = 'block';
+  document.body.style.overflow = 'hidden'; // منع التمرير في الخلفية
+
+  if (lesson.type === 'video') {
+    vBox.classList.remove('hidden');
+    rBox.classList.add('hidden');
+    document.getElementById('vFrame').src = `https://drive.google.com/file/d/${lesson.vid}/preview`;
+  } else {
+    vBox.classList.add('hidden');
+    rBox.classList.remove('hidden');
+    document.getElementById('lTitle').innerText = lesson.title;
+    document.getElementById('lBody').innerHTML = lesson.content;
+  }
+
+  localStorage.setItem('lesson_' + id, 'true');
+  render();
+}
+
+function closeContent() {
+  document.getElementById('contentSection').style.display = 'none';
+  document.body.style.overflow = 'auto';
+  document.getElementById('vFrame').src = ''; // إيقاف الفيديو عند الإغلاق
+}
+
+function updateProgress(count) {
+  const percent = (count / lessons.length) * 100;
+  document.getElementById('progressBar').style.width = percent + '%';
+}
+
+// تشغيل أولي
+render();
+
+</script>
 
 
 
 </body>
 
 </html>
+
 
